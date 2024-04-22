@@ -7,13 +7,42 @@
 
 import UIKit
 
-class ViewController: UIViewController {
-
+final class ViewController: UIViewController {
+    
+    private var counter: Int = 0
+    private var counterLabelText: String {
+        "Значение счетчика: \(counter)"
+    }
+    
+    @IBOutlet weak var counterLabel: UILabel!
+    @IBOutlet weak var historyTextView: UITextView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        counterLabel.text = counterLabelText
     }
-
-
+    
+    @IBAction func buttonTapped(_ sender: UIButton) {
+        if sender.tag == 1 && counter > 0 {
+            counter -= 1
+            addToTextField(someDescription: " : значение изменено на -1")
+        } else if sender.tag == 1 && counter == 0 {
+            addToTextField(someDescription: " : попытка уменьшить значение счётчика ниже 0")
+        } else if sender.tag == 2 {
+            counter += 1
+            addToTextField(someDescription: " : значение изменено на +1")
+        } else if sender.tag == 0 && counter > 0 {
+            counter = 0
+            addToTextField(someDescription: " : значение сброшено")
+        }
+        updateLabelText()
+    }
+    
+    private func updateLabelText() {
+        counterLabel.text = counterLabelText
+    }
+    
+    private func addToTextField(someDescription: String) {
+        historyTextView.text += "\n" + Date().formatted() + someDescription
+    }
 }
-

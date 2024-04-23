@@ -14,12 +14,20 @@ final class ViewController: UIViewController {
         "Значение счетчика: \(counter)"
     }
     
-    @IBOutlet weak var counterLabel: UILabel!
-    @IBOutlet weak var historyTextView: UITextView!
+    @IBOutlet private weak var counterLabel: UILabel!
+    @IBOutlet private weak var historyTextView: UITextView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         counterLabel.text = counterLabelText
+    }
+    
+    private func updateLabelText() {
+        counterLabel.text = counterLabelText
+    }
+    
+    private func addToTextField(someDescription: String) {
+        historyTextView.text += "\n" + Date().formatted() + someDescription
     }
     
     @IBAction func buttonTapped(_ sender: UIButton) {
@@ -36,13 +44,5 @@ final class ViewController: UIViewController {
             addToTextField(someDescription: " : значение сброшено")
         }
         updateLabelText()
-    }
-    
-    private func updateLabelText() {
-        counterLabel.text = counterLabelText
-    }
-    
-    private func addToTextField(someDescription: String) {
-        historyTextView.text += "\n" + Date().formatted() + someDescription
     }
 }
